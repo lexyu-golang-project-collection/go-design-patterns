@@ -6,4 +6,5 @@
     - [ ] Builder
   - Structural Patterns
     - [ ] Adapter
+    - [ ] Facade
   - Behavioral Patterns
