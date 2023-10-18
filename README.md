@@ -1,10 +1,14 @@
 # Ref
 - [Guru](https://refactoring.guru/design-patterns/go)
   - Creation Patterns
-    - [ ] Singleton
+    - [ ] Factory           <!-- 1 -->
+    - [ ] Builder           <!-- 2 -->
+    - [ ] Singleton         <!-- 3 -->
     - [ ] Abstract Factory
-    - [ ] Builder
-  - Structural Patterns
-    - [ ] Adapter
-    - [ ] Facade
   - Behavioral Patterns
+    - [ ] Observer          <!-- 4 -->
+    - [ ] Iterator          <!-- 5 -->
+    - [ ] Strategy          <!-- 6 -->
+  - Structural Patterns
+    - [ ] Adapter           <!-- 7 -->
+    - [ ] Facade            <!-- 8 -->
