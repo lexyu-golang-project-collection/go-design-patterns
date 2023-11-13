@@ -1,4 +1,4 @@
-package main
+package so
 
 import (
 	"fmt"
@@ -14,7 +14,7 @@ var singleInstance *single
 
 var instance *single
 
-func getInstance() *single {
+func GetInstance() *single {
 	if singleInstance == nil {
 		once.Do(
 			func() {
@@ -27,7 +27,8 @@ func getInstance() *single {
 	return singleInstance
 }
 
-func getInstanceRC() *single {
+// Try Something
+func GetInstanceRC() *single {
 	instance := &single{}
 	fmt.Println("instance addr ==>", &instance)
 	return instance
