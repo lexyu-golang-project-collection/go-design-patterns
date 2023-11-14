@@ -12,8 +12,6 @@ type single struct {
 
 var singleInstance *single
 
-var instance *single
-
 func GetInstance() *single {
 	if singleInstance == nil {
 		once.Do(
@@ -22,6 +20,7 @@ func GetInstance() *single {
 				singleInstance = &single{}
 			})
 	} else {
+		fmt.Printf("addr = %p\n", &singleInstance)
 		fmt.Println("Instance already created.")
 	}
 	return singleInstance

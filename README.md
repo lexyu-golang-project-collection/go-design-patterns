@@ -8,7 +8,7 @@
   - Behavioral Patterns
     - [ ] Observer          <!-- 4 -->
     - [ ] Iterator          <!-- 5 -->
-    - [ ] Strategy          <!-- 6 -->
+    - [x] Strategy          <!-- 6 -->
   - Structural Patterns
     - [ ] Adapter           <!-- 7 -->
     - [ ] Facade            <!-- 8 -->

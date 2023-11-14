@@ -1,4 +1,4 @@
-package main
+package mx
 
 import (
 	"fmt"
@@ -12,7 +12,7 @@ type single struct {
 
 var singleInstance *single
 
-func getInstance() *single {
+func GetInstance() *single {
 	if singleInstance == nil {
 		lock.Lock()
 		defer lock.Unlock()
@@ -23,6 +23,7 @@ func getInstance() *single {
 			fmt.Println("Single instance already created.")
 		}
 	} else {
+		fmt.Printf("addr = %p\n", &singleInstance)
 		fmt.Println("Single instance already created.")
 	}
 
