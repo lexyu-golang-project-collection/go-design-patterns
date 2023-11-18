@@ -1,27 +1,22 @@
 package main
 
-type IGun interface {
-	setName(name string)
-	setPower(power int)
-	getName() string
-	getPower() int
-}
+import (
+	"fmt"
 
-type Gun struct {
-	name  string
-	power int
-}
-
-func (g *Gun) setName(name string) {
-	g.name = name
-}
-
-type ak47 struct {
-}
-
-type musket struct {
-}
+	gu "github.com/lexyu-golang-project-collection/creational-patterns/factory/gun"
+)
 
 func main() {
+	ak47, _ := gu.GetGun("ak47")
+	musket, _ := gu.GetGun("musket")
 
+	printDetails(ak47)
+	printDetails(musket)
+}
+
+func printDetails(g gu.IGun) {
+	fmt.Printf("Gun: %s", g.GetName())
+	fmt.Println()
+	fmt.Printf("Power: %d", g.GetPower())
+	fmt.Println()
 }
