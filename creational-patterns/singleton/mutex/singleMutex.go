@@ -5,26 +5,24 @@ import (
 	"sync"
 )
 
-var lock = &sync.Mutex{}
-
 type single struct {
 }
 
 var singleInstance *single
+var lock = &sync.Mutex{}
 
 func GetInstance() *single {
 	if singleInstance == nil {
 		lock.Lock()
 		defer lock.Unlock()
 		if singleInstance == nil {
-			fmt.Println("Creating single instance now.")
+			fmt.Println("Mutex - Creating single instance now.")
 			singleInstance = &single{}
 		} else {
-			fmt.Println("Single instance already created.")
+			fmt.Printf("addr = %p : Instance already created.\n", &singleInstance)
 		}
 	} else {
-		fmt.Printf("addr = %p\n", &singleInstance)
-		fmt.Println("Single instance already created.")
+		fmt.Printf("addr = %p : Instance already created.\n", &singleInstance)
 	}
 
 	return singleInstance

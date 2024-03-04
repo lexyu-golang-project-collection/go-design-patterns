@@ -5,23 +5,21 @@ import (
 	"sync"
 )
 
-var once sync.Once
-
 type single struct {
 }
 
+var once sync.Once
 var singleInstance *single
 
 func GetInstance() *single {
 	if singleInstance == nil {
 		once.Do(
 			func() {
-				fmt.Println("Creating single instance.")
+				fmt.Printf("Once - Creating single instance addr = %p\n", &singleInstance)
 				singleInstance = &single{}
 			})
 	} else {
-		fmt.Printf("addr = %p\n", &singleInstance)
-		fmt.Println("Instance already created.")
+		fmt.Printf("addr = %p : Instance already created.\n", &singleInstance)
 	}
 	return singleInstance
 }
