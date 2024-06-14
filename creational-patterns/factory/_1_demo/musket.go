@@ -1,4 +1,4 @@
-package gun
+package main
 
 type Musket struct {
 	Gun

@@ -1,15 +1,18 @@
-package mx
+package main
 
 import (
 	"fmt"
 	"sync"
+	"time"
 )
 
 type single struct {
 }
 
-var singleInstance *single
-var lock = &sync.Mutex{}
+var (
+	singleInstance *single
+	lock           = &sync.Mutex{}
+)
 
 func GetInstance() *single {
 	if singleInstance == nil {
@@ -26,4 +29,16 @@ func GetInstance() *single {
 	}
 
 	return singleInstance
+}
+
+func main() {
+	for i := 0; i < 10; i++ {
+		go GetInstance()
+	}
+
+	time.Sleep(2 * time.Second)
+
+	var input string
+	fmt.Println("Press Enter to exit.")
+	fmt.Scanln(&input)
 }
