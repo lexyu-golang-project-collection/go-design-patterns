@@ -2,11 +2,13 @@ package main
 
 import "fmt"
 
+// Component Interface
 type Coffee interface {
 	Cost() float64
 	Description() string
 }
 
+// Concrete Component
 type SimpleCoffee struct{}
 
 func (s *SimpleCoffee) Cost() float64 {
@@ -17,6 +19,7 @@ func (s *SimpleCoffee) Description() string {
 	return "Pure Coffee"
 }
 
+// Concrete Decorator
 type Milk struct {
 	coffee Coffee
 }
@@ -29,6 +32,7 @@ func (m *Milk) Description() string {
 	return m.coffee.Description() + ", Milk"
 }
 
+// Concrete Decorator
 type Caramel struct {
 	coffee Coffee
 }
