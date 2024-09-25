@@ -19,9 +19,27 @@ type JSONData struct {
 	Price  float64 `json:"price"`
 }
 
+// Client uses the DataConverterInterface
+type Client struct {
+	converter DataConverterInterface
+}
+
+func (c *Client) ProcessData(data []byte) ([]byte, error) {
+	return c.converter.Convert(data)
+}
+
 // DataConverterInterface defines the interface expected by the client
 type DataConverterInterface interface {
 	Convert(data []byte) ([]byte, error)
+}
+
+// XMLToJSONAdapter adapts the XMLToJSONService to the DataConverterInterface
+type XMLToJSONAdapter struct {
+	service *XMLToJSONService
+}
+
+func (a *XMLToJSONAdapter) Convert(data []byte) ([]byte, error) {
+	return a.service.ConvertXMLToJSON(data)
 }
 
 // XMLToJSONService is our "incompatible" service that we need to adapt
@@ -40,24 +58,6 @@ func (s *XMLToJSONService) ConvertXMLToJSON(xmlData []byte) ([]byte, error) {
 	}
 
 	return json.Marshal(jsonStock)
-}
-
-// XMLToJSONAdapter adapts the XMLToJSONService to the DataConverterInterface
-type XMLToJSONAdapter struct {
-	service *XMLToJSONService
-}
-
-func (a *XMLToJSONAdapter) Convert(data []byte) ([]byte, error) {
-	return a.service.ConvertXMLToJSON(data)
-}
-
-// Client uses the DataConverterInterface
-type Client struct {
-	converter DataConverterInterface
-}
-
-func (c *Client) ProcessData(data []byte) ([]byte, error) {
-	return c.converter.Convert(data)
 }
 
 func main() {
