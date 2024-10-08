@@ -35,7 +35,7 @@ type DataConverterInterface interface {
 
 // XMLToJSONAdapter adapts the XMLToJSONService to the DataConverterInterface
 type XMLToJSONAdapter struct {
-	service *XMLToJSONService
+	service *XMLToJSONService // adaptee
 }
 
 func (a *XMLToJSONAdapter) Convert(data []byte) ([]byte, error) {
