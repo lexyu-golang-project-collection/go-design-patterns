@@ -1,9 +1,9 @@
 # Ref
 - [Guru](https://refactoring.guru/design-patterns/go)
   - Creation Patterns
-    - [ ] Factory                  <!-- 1 -->
+    - [✅] Factory                  <!-- 1 -->
     - [ ] Builder                  <!-- 2 -->
-    - ✅ Singleton                 <!-- 3 -->
+    - [✅] Singleton                 <!-- 3 -->
     - [ ] Abstract Factory
     - [ ] Prototype
   - Behavioral Patterns
@@ -19,7 +19,7 @@
     - [ ] Template Method
     - [ ] Visitor
   - Structural Patterns
-    - [ ] Adapter                  <!-- 7 -->
+    - [✅] Adapter                  <!-- 7 -->
     - [ ] Facade                   <!-- 8 -->
     - [ ] Decorator
     - [ ] Bridge
@@ -27,3 +27,6 @@
     - [ ] Flyweight
     - [ ] Proxy
     - [ ] Bridge
+
+# Others
+- Strategy + Factory : [go-backend-api-server-practice](https://github.com/lexyu-golang-project-collection/go-frameworks-collection)
