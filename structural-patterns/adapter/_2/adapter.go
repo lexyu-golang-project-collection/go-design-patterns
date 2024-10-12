@@ -19,45 +19,59 @@ type JSONData struct {
 	Price  float64 `json:"price"`
 }
 
-// Client uses the DataConverterInterface
+// Client uses both XML and JSON data
 type Client struct {
-	converter DataConverterInterface
+	xmlService  *XMLService
+	jsonAdapter *XMLToJSONAdapter
 }
 
-func (c *Client) ProcessData(data []byte) ([]byte, error) {
-	return c.converter.Convert(data)
+func (c *Client) ProcessXMLData(data []byte) {
+	xmlStock, err := c.xmlService.ParseXML(data)
+	if err != nil {
+		fmt.Println("Error processing XML:", err)
+		return
+	}
+	fmt.Printf("Processed XML Data: Symbol=%s, Price=%.2f\n", xmlStock.Symbol, xmlStock.Price)
 }
 
-// DataConverterInterface defines the interface expected by the client
-type DataConverterInterface interface {
-	Convert(data []byte) ([]byte, error)
+func (c *Client) ProcessJSONData(data []byte) {
+	jsonStock, err := c.jsonAdapter.ConvertToJSON(data)
+	if err != nil {
+		fmt.Println("Error processing JSON:", err)
+		return
+	}
+	fmt.Printf("Processed JSON Data: Symbol=%s, Price=%.2f\n", jsonStock.Symbol, jsonStock.Price)
 }
 
-// XMLToJSONAdapter adapts the XMLToJSONService to the DataConverterInterface
-type XMLToJSONAdapter struct {
-	service *XMLToJSONService // adaptee
-}
+// XMLService handles XML data
+type XMLService struct{}
 
-func (a *XMLToJSONAdapter) Convert(data []byte) ([]byte, error) {
-	return a.service.ConvertXMLToJSON(data)
-}
-
-// XMLToJSONService is our "incompatible" service that we need to adapt
-type XMLToJSONService struct{}
-
-func (s *XMLToJSONService) ConvertXMLToJSON(xmlData []byte) ([]byte, error) {
+func (s *XMLService) ParseXML(data []byte) (*XMLData, error) {
 	var xmlStock XMLData
-	err := xml.Unmarshal(xmlData, &xmlStock)
+	err := xml.Unmarshal(data, &xmlStock)
 	if err != nil {
 		return nil, fmt.Errorf("error unmarshalling XML: %w", err)
 	}
+	return &xmlStock, nil
+}
 
-	jsonStock := JSONData{
+// XMLToJSONAdapter adapts XML data to JSON
+type XMLToJSONAdapter struct {
+	xmlService *XMLService
+}
+
+func (a *XMLToJSONAdapter) ConvertToJSON(xmlData []byte) (*JSONData, error) {
+	xmlStock, err := a.xmlService.ParseXML(xmlData)
+	if err != nil {
+		return nil, err
+	}
+
+	jsonStock := &JSONData{
 		Symbol: xmlStock.Symbol,
 		Price:  xmlStock.Price,
 	}
 
-	return json.Marshal(jsonStock)
+	return jsonStock, nil
 }
 
 func main() {
@@ -69,28 +83,27 @@ func main() {
 		</stock>
 	`
 
-	// Create the service
-	service := &XMLToJSONService{}
-
-	// Create the adapter
-	adapter := &XMLToJSONAdapter{
-		service: service,
-	}
-
-	// Create the client with the adapter
+	xmlService := &XMLService{}
+	jsonAdapter := &XMLToJSONAdapter{xmlService: xmlService}
 	client := &Client{
-		converter: adapter,
-	}
-
-	// Process the data
-	jsonData, err := client.ProcessData([]byte(xmlString))
-	if err != nil {
-		fmt.Println("Error processing data:", err)
-		return
+		xmlService:  xmlService,
+		jsonAdapter: jsonAdapter,
 	}
 
 	fmt.Println("Original XML data:")
 	fmt.Println(xmlString)
-	fmt.Println("Converted JSON data:")
-	fmt.Println(string(jsonData))
+
+	// Client processes XML data
+	fmt.Println("\nProcessing XML:")
+	client.ProcessXMLData([]byte(xmlString))
+
+	// Client processes JSON data (converted from XML)
+	fmt.Println("\nProcessing JSON (converted from XML):")
+	client.ProcessJSONData([]byte(xmlString))
+
+	// Demonstrate JSON output
+	jsonStock, _ := jsonAdapter.ConvertToJSON([]byte(xmlString))
+	jsonOutput, _ := json.MarshalIndent(jsonStock, "", "  ")
+	fmt.Println("\nJSON output:")
+	fmt.Println(string(jsonOutput))
 }

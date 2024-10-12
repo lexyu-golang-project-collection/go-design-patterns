@@ -2,27 +2,34 @@ package main
 
 import "fmt"
 
+type Brand int
+
+const (
+	ADIDAS Brand = iota
+	NIKE
+)
+
 var (
-	factories = map[string]func() ISportsFactory{
-		"adidas": func() ISportsFactory { return &Adidas{} },
-		"nike":   func() ISportsFactory { return &Nike{} },
+	factories = map[Brand]func() ISportsFactory{
+		ADIDAS: func() ISportsFactory { return &Adidas{} },
+		NIKE:   func() ISportsFactory { return &Nike{} },
 	}
 )
 
-// interface Factory
+// Abstract Factory
 type ISportsFactory interface {
 	makeShoe() IShoe
 	makeShirt() IShirt
 }
 
-func GetSportsFactory(brand string) (ISportsFactory, error) {
+func GetSportsFactory(brand Brand) (ISportsFactory, error) {
 	if factory, ok := factories[brand]; ok {
 		return factory(), nil
 	}
 	return nil, fmt.Errorf("wrong brand type")
 }
 
-// Concrete Factory
+// Concrete Factory * 2
 type Adidas struct {
 }
 
@@ -65,7 +72,7 @@ func (nike *Nike) makeShirt() IShirt {
 	}
 }
 
-// Abstract class
+// Product Base
 type IShoe interface {
 	setLogo(logo string)
 	setSize(size int)
@@ -99,6 +106,7 @@ func (s *Shoe) getSize() int {
 
 func (s *Shoe) isShoe() ShoeDetails { return ShoeDetails{} }
 
+// Product Base
 type IShirt interface {
 	setLogo(logo string)
 	setSize(size int)
@@ -150,8 +158,8 @@ type NikeShirt struct {
 }
 
 func main() {
-	adidasFactory, _ := GetSportsFactory("adidas")
-	nikeFactory, _ := GetSportsFactory("nike")
+	adidasFactory, _ := GetSportsFactory(ADIDAS)
+	nikeFactory, _ := GetSportsFactory(NIKE)
 
 	adidasShoe := adidasFactory.makeShoe()
 	adidasShirt := adidasFactory.makeShirt()

@@ -4,10 +4,10 @@
     - [✅] Factory                  <!-- 1 -->
     - [ ] Builder                  <!-- 2 -->
     - [✅] Singleton                 <!-- 3 -->
-    - [ ] Abstract Factory
+    - [✅] Abstract Factory
     - [ ] Prototype
   - Behavioral Patterns
-    - [ ] Observer                 <!-- 4 -->
+    - [✅] Observer                 <!-- 4 -->
     - [ ] Iterator                 <!-- 5 -->
     - [ ] Strategy                 <!-- 6 -->
     - [ ] Chain of Responsibility

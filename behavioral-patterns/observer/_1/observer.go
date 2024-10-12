@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 )
 
 // Basic Publisher
@@ -16,11 +17,13 @@ type Item struct {
 	observerList []Observer
 	name         string
 	inStock      bool
+	price        float64
 }
 
-func newItem(name string) *Item {
+func newItem(name string, price float64) *Item {
 	return &Item{
-		name: name,
+		name:  name,
+		price: price,
 	}
 }
 
@@ -78,13 +81,39 @@ func (c *Customer) getID() string {
 
 func main() {
 
-	gpu_card := newItem("A100")
+	// Create items
+	gpuCard := newItem("NVIDIA A100", 10000.00)
+	cpu := newItem("AMD Ryzen 9 5950X", 799.99)
 
-	subscriber_1 := &Customer{id: "first@gmail.com"}
-	subscriber_2 := &Customer{id: "second@gmail.com"}
+	// Create customers
+	customer1 := &Customer{id: "john@example.com"}
+	customer2 := &Customer{id: "alice@example.com"}
+	customer3 := &Customer{id: "bob@example.com"}
 
-	gpu_card.register(subscriber_1)
-	gpu_card.register(subscriber_2)
+	// Register customers for GPU
+	gpuCard.register(customer1)
+	gpuCard.register(customer2)
 
-	gpu_card.notifyAll()
+	// Register customers for CPU
+	cpu.register(customer2)
+	cpu.register(customer3)
+
+	// Simulate item becoming available
+	time.Sleep(2 * time.Second)
+	fmt.Println("\nUpdating GPU availability:")
+	gpuCard.updateAvailability()
+
+	time.Sleep(2 * time.Second)
+	fmt.Println("\nUpdating CPU availability:")
+	cpu.updateAvailability()
+
+	// Deregister a customer
+	time.Sleep(2 * time.Second)
+	fmt.Println("\nDeregistering customer2 from GPU:")
+	gpuCard.deregister(customer2)
+
+	// Update availability again
+	time.Sleep(2 * time.Second)
+	fmt.Println("\nUpdating GPU availability after deregistration:")
+	gpuCard.updateAvailability()
 }
