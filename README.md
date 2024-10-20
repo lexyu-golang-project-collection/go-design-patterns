@@ -29,4 +29,4 @@
     - [ ] Bridge
 
 # Others
-- Strategy + Factory : [go-backend-api-server-practice](https://github.com/lexyu-golang-project-collection/go-frameworks-collection)
+- Strategy + Factory : [go-backend-api-server-practice](https://github.com/lexyu-golang-project-collection/go-project-practices)
