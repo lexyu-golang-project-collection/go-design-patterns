@@ -3,6 +3,7 @@
   - Creation Patterns
     - [✅] Factory                  <!-- 1 -->
     - [ ] Builder                  <!-- 2 -->
+    - [ ] Option (Compare with Builder)
     - [✅] Singleton                 <!-- 3 -->
     - [✅] Abstract Factory
     - [ ] Prototype
@@ -12,7 +13,6 @@
     - [ ] Strategy                 <!-- 6 -->
     - [ ] Chain of Responsibility
     - [ ] Command
-    - [ ] Iterator
     - [ ] Mediator
     - [ ] Memento
     - [ ] State
