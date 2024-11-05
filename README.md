@@ -2,7 +2,7 @@
 - [Guru](https://refactoring.guru/design-patterns/go)
   - Creation Patterns
     - [✅] Factory                  <!-- 1 -->
-    - [ ] Builder                  <!-- 2 -->
+    - [✅] Builder                  <!-- 2 -->
     - [ ] Option (Compare with Builder)
     - [✅] Singleton                 <!-- 3 -->
     - [✅] Abstract Factory
