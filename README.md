@@ -3,7 +3,7 @@
   - Creation Patterns
     - [✅] Factory                  <!-- 1 -->
     - [✅] Builder                  <!-- 2 -->
-    - [ ] Option (Compare with Builder)
+    - [✅] Option (Compare with Builder)
     - [✅] Singleton                 <!-- 3 -->
     - [✅] Abstract Factory
     - [ ] Prototype
