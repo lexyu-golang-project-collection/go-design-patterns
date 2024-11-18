@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"time"
 )
@@ -13,7 +14,20 @@ type Server struct {
 }
 
 func New(options ...func(*Server)) *Server {
-	panic("")
+	// Default Values
+	server := &Server{
+		host:          "127.0.0.1",
+		port:          80,
+		timeout:       time.Second * 30,
+		maxConnection: 100,
+	}
+
+	// 應用傳入的 options
+	for _, option := range options {
+		option(server)
+	}
+
+	return server
 }
 
 func WithHost(host string) func(*Server) {
@@ -48,12 +62,16 @@ func (s *Server) Start() error {
 Functional Option Pattern
 */
 func main() {
+	defaultSvr := New()
+	fmt.Println(defaultSvr)
+
 	svr := New(
 		WithHost("localhost"),
 		WithPort(8080),
 		WithTimeout(time.Minute),
-		WithMaxConn(120),
+		WithMaxConn(200),
 	)
+	fmt.Println(svr)
 	if err := svr.Start(); err != nil {
 		log.Fatal(err)
 	}
