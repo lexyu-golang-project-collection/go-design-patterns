@@ -21,7 +21,7 @@
   - Structural Patterns
     - [✅] Adapter                  <!-- 7 -->
     - [ ] Facade                   <!-- 8 -->
-    - [ ] Decorator
+    - [✅] Decorator
     - [ ] Bridge
     - [ ] Composite
     - [ ] Flyweight
